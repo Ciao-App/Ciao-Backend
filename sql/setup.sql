@@ -6,13 +6,14 @@ DROP TABLE IF EXISTS posts CASCADE;
 
 DROP TABLE IF EXISTS favorites CASCADE;
 
+DROP TABLE IF EXISTS friends_list CASCADE;
+
 CREATE TABLE users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email VARCHAR NOT NULL,
   first_name VARCHAR,
   last_name VARCHAR,
-  password_hash VARCHAR NOT NULL,
-  friends_list BIGINT
+  password_hash VARCHAR NOT NULL
 );
 
 CREATE TABLE posts (
@@ -29,4 +30,12 @@ CREATE TABLE favorites (
   posts_id BIGINT,
   FOREIGN KEY (users_id) REFERENCES users(id),
   FOREIGN KEY (posts_id) REFERENCES posts(id)
+);
+
+CREATE TABLE friends_list (
+  users_id BIGINT,
+  friend_id BIGINT,
+  FOREIGN KEY (users_id) REFERENCES users(id),
+  FOREIGN KEY (friend_id) REFERENCES users(id),
+  added BOOLEAN
 );
