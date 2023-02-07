@@ -75,10 +75,11 @@ describe('user routes', () => {
 
   test('/users should return 200 if user is admin', async () => {
     const agent = request.agent(app);
+    // const [agent] = await registerAndLogin();
 
     // create a new user
     await agent.post('/api/v1/users').send({
-      email: 'admin@admin.com',
+      email: 'admin',
       firstName: 'admin',
       lastName: 'admin',
       password: '1234',
@@ -86,7 +87,7 @@ describe('user routes', () => {
     // sign in the user
     await agent
       .post('/api/v1/users/sessions')
-      .send({ email: 'admin@admin.com', password: '1234' });
+      .send({ email: 'admin', password: '1234' });
 
     // const [agent] = await registerAndLogin({ email: 'admin' });
     const res = await agent.get('/api/v1/users/');
@@ -94,7 +95,7 @@ describe('user routes', () => {
   });
 
   test('/users should return a 200 if user is admin', async () => {
-    const [agent] = await registerAndLogin({ email: 'admin@admin.com' });
+    const [agent] = await registerAndLogin({ email: 'admin' });
     const res = await agent.get('/api/v1/users/');
     expect(res.status).toEqual(200);
   });
