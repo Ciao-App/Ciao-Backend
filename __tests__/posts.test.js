@@ -47,11 +47,12 @@ describe('post routes', () => {
   };
 
   test('POST /api/v1/posts creates new post for authenticated user', async () => {
-    const [agent] = await registerAndLogin();
+    const [agent, user] = await registerAndLogin();
     const resp = await agent.post('/api/v1/posts').send(mockPost);
     expect(resp.status).toEqual(200);
     expect(resp.body).toEqual({
       id: expect.any(String),
+      user_id: user.id,
       description: mockPost.description,
       rating: mockPost.rating,
       city: mockPost.city,

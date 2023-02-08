@@ -18,13 +18,15 @@ CREATE TABLE users (
 
 CREATE TABLE posts (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  user_id BIGINT,
   name VARCHAR NOT NULL,
   description VARCHAR,
   rating VARCHAR,
   city VARCHAR,
   state VARCHAR,
   address VARCHAR,
-  pictures VARCHAR
+  pictures VARCHAR,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE favorites (
