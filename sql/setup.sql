@@ -22,20 +22,22 @@ CREATE TABLE posts (
   description VARCHAR,
   rating VARCHAR,
   city VARCHAR,
+  state VARCHAR,
+  address VARCHAR,
   pictures VARCHAR
 );
 
 CREATE TABLE favorites (
-  users_id BIGINT,
-  posts_id BIGINT,
-  FOREIGN KEY (users_id) REFERENCES users(id),
-  FOREIGN KEY (posts_id) REFERENCES posts(id)
+  user_id BIGINT,
+  post_id BIGINT,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (post_id) REFERENCES posts(id)
 );
 
 CREATE TABLE friends_list (
-  users_id BIGINT,
+  user_id BIGINT,
   friend_id BIGINT,
-  FOREIGN KEY (users_id) REFERENCES users(id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (friend_id) REFERENCES users(id),
   added BOOLEAN
 );
