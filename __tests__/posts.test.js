@@ -12,12 +12,12 @@ const mockUser = {
   lastName: 'LastName',
   password: 'password123',
 };
-const mockUser2 = {
-  email: 'SecondUser@testing.com',
-  firstName: 'SecondUser',
-  lastName: 'SecondUser',
-  password: 'password123',
-};
+// const mockUser2 = {
+//   email: 'SecondUser@testing.com',
+//   firstName: 'SecondUser',
+//   lastName: 'SecondUser',
+//   password: 'password123',
+// };
 //* Same logic for user tests - creating a user and signing them in
 const registerAndLogin = async (userProps = {}) => {
   const password = userProps.password ?? mockUser.password;
@@ -95,5 +95,24 @@ describe('post routes', () => {
     const resp = await agent.get('/api/v1/posts/user/1');
     expect(resp.status).toBe(200);
     expect(resp.body).toEqual([userPost]);
+  });
+
+  //* PUT route test
+  // test for user updating information
+  // create a post -> edit the post
+  // expect the new post body
+  test('PUT /api/v1/posts/:id', async () => {
+    const [agent, user] = await registerAndLogin();
+    const oldPost = await Post.insert({ ...mockPost2, user_id: user.id });
+    const resp = await agent
+      .put(`/api/v1/posts/${oldPost.id}`)
+      .send({ rating: 3 });
+    expect(resp.status).toBe(200);
+    expect(resp.body).toEqual({
+      ...mockPost2,
+      rating: '3',
+      user_id: user.id,
+      id: expect.any(String),
+    });
   });
 });
