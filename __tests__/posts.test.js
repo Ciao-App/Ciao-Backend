@@ -98,9 +98,6 @@ describe('post routes', () => {
   });
 
   //* PUT route test
-  // test for user updating information
-  // create a post -> edit the post
-  // expect the new post body
   test('PUT /api/v1/posts/:id', async () => {
     const [agent, user] = await registerAndLogin();
     const oldPost = await Post.insert({ ...mockPost2, user_id: user.id });
@@ -114,5 +111,15 @@ describe('post routes', () => {
       user_id: user.id,
       id: expect.any(String),
     });
+  });
+
+  //* DELETE route test
+  test('DELETE /api/v1/posts/:id', async () => {
+    const [agent, user] = await registerAndLogin();
+    const oldPost = await Post.insert({ ...mockPost2, user_id: user.id });
+    const resp = await agent.delete(`/api/v1/posts/${oldPost.id}`);
+    expect(resp.status).toBe(200);
+    const check = await Post.getById(oldPost.id);
+    expect(check).toBeNull();
   });
 });
