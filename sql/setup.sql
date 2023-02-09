@@ -26,6 +26,7 @@ CREATE TABLE posts (
   state VARCHAR,
   address VARCHAR,
   pictures VARCHAR,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
