@@ -38,9 +38,9 @@ CREATE TABLE favorites (
 );
 
 CREATE TABLE friends_list (
-  user_id BIGINT,
-  friend_id BIGINT,
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (friend_id) REFERENCES users(id),
+  sender_id BIGINT,
+  receiver_id BIGINT,
+  FOREIGN KEY (sender_id) REFERENCES users(id),
+  FOREIGN KEY (receiver_id) REFERENCES users(id),
   added BOOLEAN DEFAULT false
 );
