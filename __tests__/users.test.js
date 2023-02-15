@@ -75,7 +75,6 @@ describe('user routes', () => {
 
   test('/users should return 200 if user is admin', async () => {
     const agent = request.agent(app);
-    // const [agent] = await registerAndLogin();
 
     // create a new user
     await agent.post('/api/v1/users').send({
@@ -89,7 +88,6 @@ describe('user routes', () => {
       .post('/api/v1/users/sessions')
       .send({ email: 'admin', password: '1234' });
 
-    // const [agent] = await registerAndLogin({ email: 'admin' });
     const res = await agent.get('/api/v1/users/');
     expect(res.status).toEqual(200);
   });
